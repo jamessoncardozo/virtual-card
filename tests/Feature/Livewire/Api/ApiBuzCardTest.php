@@ -1,19 +1,19 @@
 <?php
 
-namespace Tests\Feature\Livewire;
+namespace Tests\Feature\Livewire\Api;
 
-use App\Http\Livewire\Generate;
+use App\Http\Livewire\Api\ApiBuzCard;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class GenerateTest extends TestCase
+class ApiBuzCardTest extends TestCase
 {
     /** @test */
     public function the_component_can_render()
     {
-        $component = Livewire::test(Generate::class);
+        $component = Livewire::test(ApiBuzCard::class);
 
         $component->assertStatus(200);
     }

@@ -24,17 +24,26 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'two_factor_secret' => null,
-            'two_factor_recovery_codes' => null,
-            'remember_token' => Str::random(10),
-            'profile_photo_path' => null,
-            'current_team_id' => null,
-        ];
+      $name = $this->faker->unique()->name();
+      $user_name = Str::slug($name,'');
+      $github = 'https://www.github.com/'.Str::slug($name,'');
+      $linkedin = 'https://www.linkedin.com/in/'.Str::slug($name,'');
+      
+      return [
+          'name' => $name,
+          'email' => $this->faker->unique()->safeEmail(),
+          'email_verified_at' => $this->faker->date($format = 'd-m-Y', $max = 'now'),
+          'created_at' => $this->faker->date($format = 'd-m-Y', $max = 'now'),
+          'updated_at' => $this->faker->date($format = 'd-m-Y', $max = 'now'),
+          'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+          'remember_token' => Str::random(10),
+          'profile_photo_path' => null,
+          'current_team_id' => null,
+          'user_name' => $user_name,
+          'github_url' => $github,
+          'linkedin_url' => $linkedin,
+          'my_history' => $this->faker->text(500)
+      ];
     }
 
     /**
