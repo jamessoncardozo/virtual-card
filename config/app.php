@@ -172,6 +172,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
+        Creativeorange\Gravatar\GravatarServiceProvider::class
+
     ])->toArray(),
 
     /*
@@ -188,6 +190,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
         //'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
+
 
     ])->toArray(),
 

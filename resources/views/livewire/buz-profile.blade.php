@@ -6,7 +6,7 @@
           <div class="flex flex-wrap justify-center">
             <div class="flex justify-center w-full">
               <div class="relative">
-                <img crossorigin="anonymous" useCORS="true" src="img/profile.jpeg" class="dark:shadow-xl border-white dark:border-gray-800 rounded-full align-middle border-8 absolute -m-16 -ml-18 lg:-ml-16 max-w-[150px]" />
+                <img crossorigin="anonymous" useCORS="true" src="{{ asset($user->profile_photo_path) }}" class="dark:shadow-xl border-white dark:border-gray-800 rounded-full align-middle border-8 absolute -m-16 -ml-18 lg:-ml-16 max-w-[150px]" />
               </div>
             </div>
           </div>

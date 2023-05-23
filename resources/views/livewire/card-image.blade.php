@@ -7,7 +7,7 @@
             <div class="flex flex-wrap justify-center">
               <div class="flex justify-center w-full">
                 <div class="bg-cover bg-center w-36 h-36 dark:shadow-xl border-white dark:border-gray-800 rounded-full align-middle border-8 absolute -m-16 -ml-18 lg:-ml-16 max-w-[150px]"
-                style="background-image: url('{{ asset('img/profile.jpeg') }}');">
+                style="background-image: url('{{ asset($user->profile_photo_path) }}');">
                 </div>
               </div>
             </div>

@@ -31,15 +31,6 @@ class CardImage extends Component
 
   }
 
-  /*public function generateQrCode(){
-
-    QrCode::format('png')
-      ->size(399)
-      ->margin(1)
-      ->color(40,40,40)
-      ->generate(env('APP_URL') . '/' . $this->user_name,'./img/qrcodes/'.$this->user_name.'.png');
-  }*/
-
 
   public function render(){ 
     
