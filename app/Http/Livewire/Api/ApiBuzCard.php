@@ -32,7 +32,7 @@ class ApiBuzCard extends Component
       $user->profile_photo_path = null;
       $user->current_team_id = null;
       $user->user_name = Str::slug($request->name,'');
-      $user->my_history = 'Timestamps allows you to automatically record the time of certain events against your entities. This can be used to provide similar behaviour to the timestamps feature in Laravels Eloquent ORM.';
+      $user->my_history = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis bibendum faucibus eros, vel commodo lectus rhoncus id. Aenean malesuada, nunc ac fermentum euismod, tortor elit dignissim ligula, vel luctus lectus justo vitae arcu. Quisque eleifend, sem nec consectetur varius, urna nulla tincidunt enim, sit amet maximus nunc lectus vitae magna. Mauris id mi at turpis auctor eleifend vitae a nulla. Morbi auctor arcu eu metus fringilla, in dictum mi tincidunt. Etiam eu sapien vel sapien sollicitudin hendrerit. Ut id semper nunc. Integer ut odio semper, cursus sem eget, rutrum ipsum. Vestibulum pulvinar mauris sit amet tristique scelerisque. Mauris hendrerit sapien nec elit tristique facilisis. Quisque eu nunc in neque vestibulum sagittis et nec tellus. Sed ut pulvinar sem, sed rhoncus risus. In hendrerit ullamcorper gravida. Curabitur sed fermentum neque, in hendrerit nisi.';
       $user->save();
   
       return response()->json([

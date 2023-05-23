@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Livewire\BuzCard;
+use App\Http\Livewire\BuzProfile;
+use App\Http\Livewire\CardImage;
+use App\Http\Livewire\GenerateBuzCard;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,15 +19,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-  ])->group(function () {
+Route::get('/generate', GenerateBuzCard::class)->name('generate');
 
-      Route::get('/dashboard', function () { return view('dashboard'); })->name('dashboard');
-      Route::get('/generate', function () { return view('livewire.generate-buzcard'); })->name('generate');
+Route::get('/livewire/card-image/{id}', CardImage::class)->name('card-image');
 
+Route::get('/livewire/buz-card/{id}', BuzCard::class)->name('buz-card');
+    
+Route::get('{user_name}', BuzProfile::class)->name('buz-profile');
+
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'),'verified'])->group(function () {
+    Route::get('/dashboard', function () { return view('dashboard');})->name('dashboard');
 });
