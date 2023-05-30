@@ -6,7 +6,7 @@ trait MakeGravatarTrait
 {
   public function makeGravatar()
   {
-    $modes=[ 'blank', 'identicon', 'monsterid', 'mp', 'retro', 'robohash', 'wavatar',];
+    $modes=[ 'identicon', 'monsterid', 'mp', 'retro', 'robohash', 'wavatar',];
     
     return $modes[array_rand($modes)];
 

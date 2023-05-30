@@ -21,14 +21,15 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'),'verified'])->group(function () {
+  Route::get('/dashboard', function () { return view('dashboard');})->name('dashboard');
+});
+
 Route::get('/generate', GenerateBuzCard::class)->name('generate');
 
-Route::get('/livewire/card-image/{id}', CardImage::class)->name('card-image');
+Route::get('/card-image/{id}', CardImage::class)->name('card-image');
 
-Route::get('/livewire/buz-card/{id}', BuzCard::class)->name('buz-card');
+Route::get('/buz-card/{id}', BuzCard::class)->name('buz-card');
     
 Route::get('{user_name}', BuzProfile::class)->name('buz-profile');
 
-Route::middleware(['auth:sanctum', config('jetstream.auth_session'),'verified'])->group(function () {
-    Route::get('/dashboard', function () { return view('dashboard');})->name('dashboard');
-});

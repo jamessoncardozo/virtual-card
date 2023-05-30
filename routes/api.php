@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Livewire\Api\ApiBuzCard;
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +16,11 @@ use App\Http\Livewire\Api\ApiBuzCard;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+  return $request->user();
 });
+Route::get('users', [ApiBuzCard::class, 'getAllUsers'])->name('api.users')->middleware('api');
 
-  Route::post('users', [ApiBuzCard::class,'createUser'])->middleware('api');
-  Route::put('user/{id}', [ApiBuzCard::class,'updateUser'])->middleware('api');
-  Route::delete('user/{id}',[ApiBuzCard::class,'deleteUser'])->middleware('api');
-   
-  Route::get('users', [ApiBuzCard::class,'getAllUsers']);
-  Route::get('user/{id}', [ApiBuzCard::class,'getUser']);
+Route::get('user/{id}', [ApiBuzCard::class, 'getUser'])->middleware('api');
+Route::post('users', [ApiBuzCard::class, 'createUser'])->middleware('api');
+Route::put('user/{id}', [ApiBuzCard::class, 'updateUser'])->middleware('api');
+Route::delete('user/{id}', [ApiBuzCard::class, 'deleteUser'])->middleware('api');

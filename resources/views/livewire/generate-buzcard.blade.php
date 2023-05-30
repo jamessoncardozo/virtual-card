@@ -58,13 +58,4 @@
       </form>
     </div>
   </div>
-  @dump(array_rand([
-    'blank',
-    'identicon',
-    'monsterid',
-    'mp',
-    'retro',
-    'robohash',
-    'wavatar',
-]))
 </x-guest-layout>
