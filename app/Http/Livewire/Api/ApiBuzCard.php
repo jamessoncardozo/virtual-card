@@ -3,18 +3,34 @@
 namespace App\Http\Livewire\Api;
 
 use App\Models\User;
+use Hamcrest\Core\IsNull;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
 use Illuminate\Http\Request;
 use Livewire\Component;
 
+use function PHPUnit\Framework\assertIsArray;
+use function PHPUnit\Framework\assertIsNotArray;
+use function PHPUnit\Framework\assertIsObject;
+use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\isNull;
+
 class ApiBuzCard extends Component
 {
 
     public function getAllUsers() {
-      $users = User::orderByDesc('id')->get()->toJson(JSON_PRETTY_PRINT);
-      return response($users, 200);
+      
+      $users = User::all();
+
+      if($users->isNotEmpty()){
+        $users->toJson(JSON_PRETTY_PRINT);
+        return response($users, 200);
+      }else{
+        return response()->json([
+          "message" => "Model Empty"
+        ], 404);
+      }
     }
 
     public function createUser(Request $request) {
