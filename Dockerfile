@@ -1,45 +1,62 @@
-# Use the PHP base image with built-in Nginx
-FROM php:8.2.4-fpm
+FROM phpdockerio/php:8.2-fpm
 
-# Install necessary dependencies
-RUN apt-get update && apt-get install -y \
-    nginx \
-    supervisor
+# Set working directory
+RUN mkdir -p /var/www/virtual-card
+ARG user=jamesson
+ARG uid=1000
 
-# Copy project files to the working directory in the container
-COPY . /var/www/virtual-card
-
-# Configure Nginx server
-COPY docker/nginx.conf /etc/nginx/sites-available/project1
-
-# Copy the supervisor configuration file
-COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-# Set the working directory
 WORKDIR /var/www/virtual-card
 
-# Install Laravel dependencies
-RUN apt-get update && apt-get install -y \
-    zip \
-    unzip \
+# Copy composer.lock and composer.json
+COPY composer.lock composer.json /var/www/virtual-card
+
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+    git \
+    curl \
+    ca-certificates \
+    libargon2-dev \
+    libcurl4-openssl-dev \
+    libreadline-dev \
+    libsodium-dev \
+    libsqlite3-dev \
+    libssl-dev \
+    zlib1g-dev \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd \
-    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && composer install --no-dev --optimize-autoloader
+    zip \
+    unzip
 
-# Copy custom Nginx configuration file
-COPY docker/nginx.conf /etc/nginx/sites-available/default
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Set correct permissions for Laravel storage folders
-RUN chown -R www-data:www-data \
-    /var/www/virtual-card/storage \
-    /var/www/virtual-card/bootstrap/cache
+# Install PHP extensions
+# RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
-# Expose Nginx ports
-EXPOSE 80
-EXPOSE 443
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Run Nginx server and supervisor
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+# Add user for laravel application
+# Create system user to run Composer and Artisan Commands
+RUN useradd -G www-data,root -u $uid -d /home/$user $user
+RUN mkdir -p /home/$user/.composer
+RUN chown -R $user:www-data /home/$user
+RUN chown -R $user:www-data /var/www/virtual-card
+
+
+# Copy existing application directory contents
+COPY . /var/www/virtual-card/
+
+# Copy existing application directory contents
+COPY ./docker/nginx/nginx.key  /etc/nginx/certificate/
+COPY ./docker/nginx/nginx-certificate.crt  /etc/nginx/certificate/
+
+# Copy existing application directory permissions
+COPY --chown=$user:www-data . /var/www/virtual-card/
+
+# Change current user to www
+USER $user
+
+# Expose port 9000 and start php-fpm server
+EXPOSE 9000
+CMD ["php-fpm"]
