@@ -1,18 +1,17 @@
-FROM phpdockerio/php:8.2-fpm
+FROM php:8.2-fpm
 
-# Set working directory
-RUN mkdir -p /var/www/virtual-card
-ARG user=jamesson
-ARG uid=1000
+ARG user
+ARG uid
+ARG gid
 
-WORKDIR /var/www/virtual-card
-
-# Copy composer.lock and composer.json
-COPY composer.lock composer.json /var/www/virtual-card
+# Aplication Folder
+ARG APP_DIR=/var/www/virtual-card
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     git \
     curl \
+    ufw \
+    sudo \
     ca-certificates \
     libargon2-dev \
     libcurl4-openssl-dev \
@@ -31,32 +30,46 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-# RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Add user for laravel application
 # Create system user to run Composer and Artisan Commands
-RUN useradd -G www-data,root -u $uid -d /home/$user $user
+RUN groupadd --gid $gid $user
+RUN useradd -rm -d /home/$user -s /bin/bash -g root -G sudo,www-data -u $uid --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID $user
 RUN mkdir -p /home/$user/.composer
-RUN chown -R $user:www-data /home/$user
-RUN chown -R $user:www-data /var/www/virtual-card
+RUN chown -R $user:$user /home/$user
 
+# Set working directory
+RUN mkdir -p $APP_DIR
+WORKDIR $APP_DIR
+RUN cd $APP_DIR
 
 # Copy existing application directory contents
-COPY . /var/www/virtual-card/
+COPY . $APP_DIR
+# Copy composer.lock and composer.json
+COPY composer.lock composer.json $APP_DIR
 
-# Copy existing application directory contents
-COPY ./docker/nginx/nginx.key  /etc/nginx/certificate/
+# Copy existing ssl certificate to nginx
+
 COPY ./docker/nginx/nginx-certificate.crt  /etc/nginx/certificate/
 
-# Copy existing application directory permissions
-COPY --chown=$user:www-data . /var/www/virtual-card/
+# Change directory user to nginx default user
+
+RUN chown -R www-data:www-data $APP_DIR *
+RUN chmod -R a+rwx $APP_DIR
+
+
 
 # Change current user to www
 USER $user
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
+EXPOSE 8000
+EXPOSE 80
+EXPOSE 443
+
 CMD ["php-fpm"]

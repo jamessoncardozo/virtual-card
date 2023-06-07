@@ -3,8 +3,9 @@ services:
   app:
     build:
       args:
-        user: jamesson
+        user: jamessoncardozo
         uid: 1000
+        gid: 1000
       context: ./
       dockerfile: Dockerfile
     container_name: virtualcard-app
@@ -16,7 +17,7 @@ services:
       - vcard-net
 
   db:
-    image: mysql:8.0
+    image: mysql:latest
     container_name: virtualcard-db
     restart: unless-stopped
     environment:
