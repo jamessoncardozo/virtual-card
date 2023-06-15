@@ -25,7 +25,7 @@
         @livewireScripts
         <script>
           function takeScreenshot() {
-            // Captura o elemento "captura" e converte em imagem
+            // Captura o elemento "businesscard" e converte em imagem
             html2canvas(document.getElementById("businesscard")).then(function(canvas) {
               // Cria um link para fazer o download da imagem
               var link = document.createElement("a");

@@ -4,11 +4,13 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
+//Error Handling
 class NoBuzCard extends Component
-{ public $title,$code,$desc;
+{ 
+  public $title,$code,$desc;
 
-    public function render()
-    {
-        return view('livewire.no-buz-card');
-    }
+  public function render()
+  {
+    return view('livewire.no-buz-card');
+  }
 }
