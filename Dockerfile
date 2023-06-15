@@ -83,8 +83,6 @@ RUN openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
 
 RUN chown -R www-data:www-data $APP_DIR *
 RUN chmod -R a+rwx $APP_DIR
-RUN composer install
-
 
 # Copy sites settings to nginx
 
