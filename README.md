@@ -85,7 +85,7 @@ With the Container ID from virtual-card_app image you will be able to access you
 ```sh
 sudo docker exec -u root -it d1aab03ddc7f bash
 ```
-## Now lets make somethings to make this app in production.
+## Now let's put this application into production!
 - First of all, install the project dependencies.
 
 ```sh
