@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d2d45f8ca9c20f31b79f3089df147605",
+    "content-hash": "3b4f465e6c396eb1f03a65adab6e96ba",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1342,16 +1342,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.12.0",
+            "version": "v10.13.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "9e6dcff23ab1d4b522bef56074c31625cf077576"
+                "reference": "03106ae9ba2ec4b36dc973b7bdca6fad81e032b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/9e6dcff23ab1d4b522bef56074c31625cf077576",
-                "reference": "9e6dcff23ab1d4b522bef56074c31625cf077576",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/03106ae9ba2ec4b36dc973b7bdca6fad81e032b4",
+                "reference": "03106ae9ba2ec4b36dc973b7bdca6fad81e032b4",
                 "shasum": ""
             },
             "require": {
@@ -1538,7 +1538,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-05-23T18:04:16+00:00"
+            "time": "2023-06-08T20:25:36+00:00"
         },
         {
             "name": "laravel/jetstream",

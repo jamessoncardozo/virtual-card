@@ -6,9 +6,17 @@ services:
         user: jamessoncardozo
         uid: 1000
         gid: 1000
+        Country: BR
+        State: São Paulo
+        Locality: Development Laboratory
+        Organization: Qualquer 
+        OrganizationalUnit: 
+        CommonName: ${HOSTNAME}
+        EmailAddress: youradress@example.com
+
       context: ./
       dockerfile: Dockerfile
-    container_name: virtualcard-app
+    container_name: vcard-app
     restart: unless-stopped
     working_dir: /var/www/virtual-card
     volumes:
@@ -18,7 +26,7 @@ services:
 
   db:
     image: mysql:latest
-    container_name: virtualcard-db
+    container_name: vcard-db
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
@@ -27,23 +35,22 @@ services:
       MYSQL_USER: ${DB_USERNAME}
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
-    #volumes:
-    #  - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+    volumes:
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
     networks:
       - vcard-net
 
   nginx:
     image: nginx:alpine
-    container_name: virtualcard-nginx
+    container_name: vcard-nginx
     restart: unless-stopped
     ports:
-      - 8000:80
+      - 80:80
     volumes:
       - ./:/var/www/virtual-card
       - ./docker/nginx:/etc/nginx/conf.d/
     networks:
       - vcard-net
-
 networks:
   vcard-net:
     driver: bridge
