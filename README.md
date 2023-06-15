@@ -54,7 +54,8 @@ sudo nano .env
 APP_ENV=production #You can change to local or testing mode.
 APP_DEBUG=false
 APP_HOSTNAME=your_host_name # Your machine name
-APP_URL=http://localhost # To testing environment, ALWAYS KEEP AS LOCALHOST
+# This is important to your mobile scanning and redirect to user page
+APP_URL=http://localhost # To testing environment, ALWAYS KEEP AS LOCALHOST. 
 
 # DB Configuration
 
@@ -73,29 +74,49 @@ sudo docker-compose build --force-rm --pull --no-cache
 
 ```sh
 sudo docker-compose up -d --build
+sudo docker ps
 ```
+As you can see, all containers are up! Now get the *virtual-card_app* ID.
+![docker ps output](public/img/dockerps.png)
 
 - **Access the container:**
 
+With the Container ID from virtual-card_app image you will be able to access your app container as root.
 ```sh
-sudo docker-compose exec app bash
+sudo docker exec -u root -it d1aab03ddc7f bash
 ```
+## Now lets make somethings to make this app in production.
+- First of all, install the project dependencies.
+
+```sh
+composer install
+```
+- For some reason, your privileges may need to be to upgraded.
+
+```sh
+chown -R www-data:www-data ./*
+chmod -R 3775 ./*
+```
+
 ### **Database Migration**
 - Run the following command to migrate the database:
 ```sh
-sudo docker-compose exec app php artisan migrate
+php artisan migrate
 ```
 
 - Generate Laravel application key:
 ```sh
-sudo docker-compose exec app php artisan key:generate
+php artisan key:generate
 ```
 
 ### **Clear Configuration Cache**
 If you make changes to the configuration files, clear the configuration cache using the following command:
 
 ```sh
-sudo docker-compose exec app php artisan config:cache
+php artisan config:cache
+php artisan cache:clear
+php artisan view:clear
+php artisan config:clear
 ```
 ## That's it! You have successfully set up and run the Virtual Card project. Feel free to explore. 
 
