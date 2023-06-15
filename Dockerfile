@@ -84,12 +84,6 @@ RUN openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
 RUN chown -R www-data:www-data $APP_DIR *
 RUN chmod -R a+rwx $APP_DIR
 
-RUN mkdir ./public/img/avatars
-RUN mkdir ./public/img/qrcodes
-
-RUN chown -R www-data:www-data ./public/img *
-RUN chmod -R a+rwx ./public/img/*
-
 # Copy sites settings to nginx
 
 RUN rm -rf /etc/nginx/sites-enabled/* && rm -rf /etc/nginx/sites-available/*
