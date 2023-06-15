@@ -1,6 +1,11 @@
 # Project Virtual Card
 
 **Note**: *This project was builted based on Ubuntu 22.04. Please notice that the instructions provided assume you are using Ubuntu 22.04. If you are using a different operating system or version, make sure to adapt the commands accordingly to your environment.*
+
+## API Access
+The project includes a RESTful API that can be accessed using tools like Postman. You can send HTTP requests to the API endpoints to interact with the application.
+
+
 ## Instructions to Run the Project
 
  - **Clone the project and access his folder:**
@@ -93,6 +98,36 @@ If you make changes to the configuration files, clear the configuration cache us
 sudo docker-compose exec app php artisan config:cache
 ```
 ## That's it! You have successfully set up and run the Virtual Card project. Feel free to explore. 
+
+### Running Tests
+
+You can run the following tests to verify the functionality of the API. These tests are located in the `tests/Feature/Livewire/Api` directory:
+
+- Add One User:
+```sh
+sudo php artisan test --filter ApiCreateUserTest::the_api_can_add_one_user
+```
+
+- Delete One User:
+```sh
+sudo php artisan test --filter ApiDelUserTest::the_api_can_del_one_user
+```
+
+-Get All Users:
+```sh
+sudo php artisan test --filter ApiGetAllUsersTest::the_api_return_all_users
+```
+
+-Get One Users:
+```sh
+sudo php artisan test --filter ApiGetUserTest::the_api_return_one_user
+```
+
+- Update One User:
+
+```sh
+sudo php artisan test --filter ApiUpdateUserTest::the_api_can_put_one_user
+```
 
 ## **Author**
 
