@@ -96,8 +96,6 @@ COPY ./docker/nginx/default.conf /etc/nginx/sites-enabled/default.conf
 USER $user
 
 # Expose port 9000 and start php-fpm server
-EXPOSE 9000
-EXPOSE 8000
 EXPOSE 80
 EXPOSE 443
 
