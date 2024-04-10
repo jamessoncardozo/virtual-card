@@ -67,7 +67,7 @@ DB_PASSWORD=your_laravel_db_password
 - **Build the Docker containers:**
 
 ```sh
-sudo docker-compose build --force-rm --pull --no-cache
+sudo docker compose build --force-rm --pull --no-cache
 ```
 
 - **Start the project containers:**
