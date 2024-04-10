@@ -73,7 +73,7 @@ sudo docker compose build --force-rm --pull --no-cache
 - **Start the project containers:**
 
 ```sh
-sudo docker-compose up -d --build
+sudo docker compose up -d --build
 sudo docker ps
 ```
 As you can see, all containers are up! Now get the *virtual-card_app* ID.
